@@ -212,7 +212,8 @@ module BootstrapForm
 
     def generate_help(name, help_text)
       help_text = object.errors[name].join(", ") if has_error?(name) && inline_errors
-      content_tag(:span, help_text, class: "help-block") if help_text
+      # Initial space prevent text extraction (i.e. capybara) from concatenating label with help message
+      ' '.html_safe + content_tag(:span, help_text, class: "help-block") if help_text
     end
 
     def inputs_collection(name, collection, value, text, options = {}, &block)

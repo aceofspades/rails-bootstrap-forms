@@ -180,7 +180,7 @@ class BootstrapFormTest < ActionView::TestCase
   end
 
   test "bootstrap_specific options are handled correctly" do
-    expected = %{<div class="form-group"><label class="control-label" for="user_status">My Status Label</label><select class="form-control" id="user_status" name="user[status]"><option value="1">activated</option>\n<option value="2">blocked</option></select><span class=\"help-block\">Help!</span></div>}
+    expected = %{<div class="form-group"><label class="control-label" for="user_status">My Status Label</label><select class="form-control" id="user_status" name="user[status]"><option value="1">activated</option>\n<option value="2">blocked</option></select> <span class=\"help-block\">Help!</span></div>}
     assert_equal expected, @builder.select(:status, [['activated', 1], ['blocked', 2]], label: "My Status Label", help: "Help!" )
   end
 
@@ -353,12 +353,12 @@ class BootstrapFormTest < ActionView::TestCase
   end
 
   test "help messages for default forms" do
-    expected = %{<div class="form-group"><label class="control-label" for="user_email">Email</label><input class="form-control" id="user_email" name="user[email]" type="text" value="steve@example.com" /><span class="help-block">This is required</span></div>}
+    expected = %{<div class="form-group"><label class="control-label" for="user_email">Email</label><input class="form-control" id="user_email" name="user[email]" type="text" value="steve@example.com" /> <span class="help-block">This is required</span></div>}
     assert_equal expected, @builder.text_field(:email, help: 'This is required')
   end
 
   test "help messages for horizontal forms" do
-    expected = %{<div class="form-group"><label class="control-label col-sm-2" for="user_email">Email</label><div class="col-sm-10"><input class="form-control" id="user_email" name="user[email]" type="text" value="steve@example.com" /><span class="help-block">This is required</span></div></div>}
+    expected = %{<div class="form-group"><label class="control-label col-sm-2" for="user_email">Email</label><div class="col-sm-10"><input class="form-control" id="user_email" name="user[email]" type="text" value="steve@example.com" /> <span class="help-block">This is required</span></div></div>}
     assert_equal expected, @horizontal_builder.text_field(:email, help: "This is required")
   end
 
@@ -442,7 +442,7 @@ class BootstrapFormTest < ActionView::TestCase
       %{<p class="form-control-static">Bar</p>}.html_safe
     end
 
-    expected = %{<div class="form-group has-error"><p class="form-control-static">Bar</p><span class="help-block">can&#39;t be blank, is too short (minimum is 5 characters)</span></div>}
+    expected = %{<div class="form-group has-error"><p class="form-control-static">Bar</p> <span class="help-block">can&#39;t be blank, is too short (minimum is 5 characters)</span></div>}
     assert_equal expected, output
   end
 
@@ -474,7 +474,7 @@ class BootstrapFormTest < ActionView::TestCase
       f.text_field(:email, help: 'This is required')
     end
 
-    expected = %{<form accept-charset="UTF-8" action="/users" class="new_user" id="new_user" method="post"><div style="margin:0;padding:0;display:inline"><input name="utf8" type="hidden" value="&#x2713;" /></div><div class="form-group has-error"><label class="control-label" for="user_email">Email</label><input class="form-control" id="user_email" name="user[email]" type="text" /><span class="help-block">can&#39;t be blank, is too short (minimum is 5 characters)</span></div></form>}
+    expected = %{<form accept-charset="UTF-8" action="/users" class="new_user" id="new_user" method="post"><div style="margin:0;padding:0;display:inline"><input name="utf8" type="hidden" value="&#x2713;" /></div><div class="form-group has-error"><label class="control-label" for="user_email">Email</label><input class="form-control" id="user_email" name="user[email]" type="text" /> <span class="help-block">can&#39;t be blank, is too short (minimum is 5 characters)</span></div></form>}
     assert_equal expected, output
   end
 
@@ -486,7 +486,7 @@ class BootstrapFormTest < ActionView::TestCase
       f.text_field(:email, help: 'This is required')
     end
 
-    expected = %{<form accept-charset="UTF-8" action="/users" class="new_user" id="new_user" method="post"><div style="margin:0;padding:0;display:inline"><input name="utf8" type="hidden" value="&#x2713;" /></div><div class="form-group has-error"><label class="control-label" for="user_email">Email</label><input class="form-control" id="user_email" name="user[email]" type="text" /><span class="help-block">This is required</span></div></form>}
+    expected = %{<form accept-charset="UTF-8" action="/users" class="new_user" id="new_user" method="post"><div style="margin:0;padding:0;display:inline"><input name="utf8" type="hidden" value="&#x2713;" /></div><div class="form-group has-error"><label class="control-label" for="user_email">Email</label><input class="form-control" id="user_email" name="user[email]" type="text" /> <span class="help-block">This is required</span></div></form>}
     assert_equal expected, output
   end
 
@@ -498,7 +498,7 @@ class BootstrapFormTest < ActionView::TestCase
       f.text_field(:email, help: 'This is required')
     end
 
-    expected = %{<form accept-charset="UTF-8" action="/users" class="new_user" id="new_user" method="post"><div style="margin:0;padding:0;display:inline"><input name="utf8" type="hidden" value="&#x2713;" /></div><div class="form-group has-error"><div class="field_with_errors"><label class="control-label" for="user_email">Email</label></div><div class="field_with_errors"><input class="form-control" id="user_email" name="user[email]" type="text" /></div><span class="help-block">can&#39;t be blank, is too short (minimum is 5 characters)</span></div></form>}
+    expected = %{<form accept-charset="UTF-8" action="/users" class="new_user" id="new_user" method="post"><div style="margin:0;padding:0;display:inline"><input name="utf8" type="hidden" value="&#x2713;" /></div><div class="form-group has-error"><div class="field_with_errors"><label class="control-label" for="user_email">Email</label></div><div class="field_with_errors"><input class="form-control" id="user_email" name="user[email]" type="text" /></div> <span class="help-block">can&#39;t be blank, is too short (minimum is 5 characters)</span></div></form>}
     assert_equal expected, output
   end
 
@@ -562,7 +562,7 @@ class BootstrapFormTest < ActionView::TestCase
 
   test 'collection_radio_buttons renders the form_group correctly' do
     collection = [Address.new(id: 1, street: 'Foobar')]
-    expected = %{<div class="form-group"><label class="control-label" for="user_misc">This is a radio button collection</label><label class="radio" for="user_misc_1"><input id="user_misc_1" name="user[misc]" type="radio" value="1" /> Foobar</label><span class="help-block">With a help!</span></div>}
+    expected = %{<div class="form-group"><label class="control-label" for="user_misc">This is a radio button collection</label><label class="radio" for="user_misc_1"><input id="user_misc_1" name="user[misc]" type="radio" value="1" /> Foobar</label> <span class="help-block">With a help!</span></div>}
 
     assert_equal expected, @builder.collection_radio_buttons(:misc, collection, :id, :street, label: 'This is a radio button collection', help: 'With a help!')
   end
@@ -590,7 +590,7 @@ class BootstrapFormTest < ActionView::TestCase
 
   test 'collection_check_boxes renders the form_group correctly' do
     collection = [Address.new(id: 1, street: 'Foobar')]
-    expected = %{<div class="form-group"><label class="control-label" for="user_misc">This is a checkbox collection</label><div class="checkbox"><label for="user_misc_1"><input id="user_misc_1" name="user[misc][]" type="checkbox" value="1" /> Foobar</label></div><span class="help-block">With a help!</span></div>}
+    expected = %{<div class="form-group"><label class="control-label" for="user_misc">This is a checkbox collection</label><div class="checkbox"><label for="user_misc_1"><input id="user_misc_1" name="user[misc][]" type="checkbox" value="1" /> Foobar</label></div> <span class="help-block">With a help!</span></div>}
 
     assert_equal expected, @builder.collection_check_boxes(:misc, collection, :id, :street, label: 'This is a checkbox collection', help: 'With a help!')
   end
